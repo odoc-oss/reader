@@ -1,0 +1,39 @@
+[package]
+name = "sea-reader"
+version = "0.1.0"
+description = "PDF Annotation and Reading Tool"
+authors = ["you"]
+edition = "2021"
+
+[lib]
+name = "sea_reader_lib"
+crate-type = ["lib", "cdylib", "staticlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["devtools"] }
+tauri-plugin-shell = "2"
+tauri-plugin-fs = "2"
+tauri-plugin-dialog = "2"
+tauri-plugin-os = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tauri-plugin-http = "2.5.4"
+axum = { version = "0.7", features = ["macros"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net"] }
+hyper = "1"
+hyper-util = { version = "0.1", features = ["client-legacy", "http1", "http2"] }
+http-body-util = "0.1"
+tower-http = { version = "0.5", features = ["fs"] }
+
+[target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
+tauri-plugin-single-instance = "2"
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = "s"
+strip = true

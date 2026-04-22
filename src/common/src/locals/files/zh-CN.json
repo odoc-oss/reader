@@ -1,0 +1,516 @@
+{
+  "common": {
+    "symbol": {
+      "colon": "：",
+      "comma": "，",
+      "period": "。",
+      "space": "",
+      "parenthesis": "（{0}）"
+    },
+    "units": {
+      "yen": "元"
+    },
+    "dialogPay": {
+      "dialog": {
+        "title": "操作受限",
+        "closeButton": "关闭",
+        "buyCredit": "购买积分包",
+        "loginGetFree": "登录获取免费会员",
+        "upgradeMembership": "升级会员",
+        "membershipTip": "会员权益不足，请联系客服处理"
+      }
+    },
+    "time": {
+      "today": "今天",
+      "yesterday": "昨天"
+    },
+    "text": {
+      "or": "或",
+      "ok": "好的",
+      "re": "重新",
+      "all": "全部",
+      "rename": "重命名",
+      "delete": "删除",
+      "copy": "复制",
+      "paste": "粘贴",
+      "back": "返回",
+      "words": "字",
+      "tips": "提示",
+      "progress": "进度",
+      "import": "导入",
+      "upload": "上传",
+      "download": "下载",
+      "list": "列表",
+      "file": "文件",
+      "mode": "模式",
+      "support": "支持",
+      "alipay": "支付宝",
+      "wechat": "微信",
+      "optimize": "优化",
+      "paper": "论文",
+      "chinese": "中文",
+      "english": "英文",
+      "please": "请",
+      "refresh": "刷新"
+    },
+    "tips": {
+      "copied": "已复制",
+      "uploading": "上传中",
+      "processing": "正在加载中，请稍候",
+      "empty": "暂无{0}",
+      "loginFirst": "请先登录",
+      "wechatContact": "请使用微信扫码添加小管家",
+      "closeSelf": "页面将于{0}秒后关闭"
+    },
+    "html": {
+      "pageTitle": {
+        "404": "未找到页面",
+        "forbidden": "无权限",
+        "error": "错误",
+        "gobackHome": "返回首页",
+        "pageError": "抱歉，此页面不存在"
+      }
+    },
+    "pdfViewer": {
+      "catalog": {
+        "loading": "目录正在解析中...",
+        "error": "目录暂时未能解析成功"
+      },
+      "toolbar": {
+        "fullscreen": "全屏模式",
+        "expand": "展开",
+        "collapse": "收起",
+        "expandLeftbar": "展开目录",
+        "collapseLeftbar": "收起目录"
+      }
+    },
+    "uploadFile": {
+      "invalidWordFiletype": "上传的Word文件需为doc或docx格式",
+      "invalidWordFilesize": "上传的Word文件需小于{filesize}",
+      "invalidLatexFiletype": "上传的LaTeX文件需为tar或zip格式",
+      "invalidLatexFilesize": "上传的LaTeX文件需小于{filesize}",
+      "invalidFiletype": "{filename} 不是有效的 {filetype} 文件",
+      "invalidFilesize": "{filename} 文件大小超过{filesize}限制"
+    },
+    "account": {
+      "login": "登录",
+      "register": "注册",
+      "logout": "退出",
+      "banned": {
+        "tt": "账号封禁通知",
+        "head": "尊敬的用户",
+        "msg1": "我们注意到您的账号存在",
+        "msg2": "为了维护社区秩序，我们不得不对您的账号进行封禁处理。很抱歉告知您，您的账号将被封禁至",
+        "contact1": "如果您对此有任何异议，欢迎联系我们，我们会尽快为您解决问题。请添加我们官方小管家的微信：",
+        "contact2": "我们将在第一时间为您提供帮助。",
+        "tail": "再次感谢您对我们的支持和理解，我们期待您的再次使用。",
+        "btn": "确认退出登录"
+      }
+    },
+    "premium": {
+      "upgrade": "升级",
+      "upgradeTo": "升级为",
+      "upgradePrice": "补差价",
+      "upgradeBeanTip": "升级为@:{'common.premium.versions.profession'}，每周会有{0}豆",
+      "beansTip": "每周会有{0}豆",
+      "beansTip2": "AI豆每周剩余部分不会累积到下周",
+      "btns": {
+        "get": "获取",
+        "known": "知道了",
+        "payed": "支付完成",
+        "reget": "支付遇到问题？再次获取",
+        "renew": "续费",
+        "upgrade": "升级",
+        "plan": "开通",
+        "demo": "获取Demo",
+        "custom": "联系商务",
+        "more": "更多解锁方式>",
+        "settlement": "结算"
+      },
+      "senior": "高级版",
+      "member": "会员",
+      "vip": "会员",
+      "versions": {
+        "free": "免费版",
+        "standard": "标准版",
+        "profession": "专业版",
+        "enterprise": "团队定制版",
+        "outstanding": "杰出版",
+        "version": "版本",
+        "groupBuy": "团购"
+      },
+      "wordings": {
+        "none": "暂无",
+        "left": "剩余",
+        "left1": "剩余{0}天",
+        "lefttip": "{0}使用完后抵扣",
+        "pricepermonth": "仅{0}元/月",
+        "beanspertime": "每次消耗{0}颗豆",
+        "able": "有",
+        "gray": "优先体验",
+        "fillUp": "补满",
+        "unlimit": "无限制",
+        "benefit": {
+          "standard": "开通标准版，轻松读论文",
+          "profession": "开通专业版，轻松做科研",
+          "enterprise": "企业定制，功能更强大",
+          "outstanding": "开通杰出版，轻松带学生"
+        },
+        "contact": "请联系商务人员咨询",
+        "unpayable": "您已经是{0}用户，请",
+        "unpayable2": "您的{0}有效期充足",
+        "upgrade": "请升级更高版本",
+        "diff": "对比方案与功能",
+        "save": "省¥{0}",
+        "save2": "已省¥{0}",
+        "pflprice": "优惠价{0}/年",
+        "pchprice": "只需要补差价",
+        "patchprice": "您的{0}有效期{1}天",
+        "patchpricefull": "升级您的{0}其中{1}天",
+        "buytip": "仅@:{'common.premium.versions.profession'}以上可用，请谨慎规划",
+        "slogan": {
+          "standard": "有AI，轻松读论文",
+          "professional": "有AI，轻松做科研",
+          "enterprise": "有AI，轻松带学生"
+        },
+        "upgradeNow": "立即升级",
+        "discount": "优惠",
+        "groupBuyTitle": "购买详情：",
+        "viewMore": "查看更多"
+      },
+      "units": {
+        "day": "天",
+        "one": "个",
+        "piece": "篇",
+        "user": "人",
+        "peruseryear": "/人/年",
+        "peryear": "/年",
+        "pertimesweek": "次/周",
+        "perbeansweek": "个/周",
+        "pertimesday": "次/天",
+        "tpl_doc": "可添加{0}条",
+        "tpl_group": "可创建{0}个，可加入{1}个",
+        "tpl_pages": "支持{1}页以下论文",
+        "tpl_pagespertime": "单次限制{1}页",
+        "tpl_pagesshort": "每篇限{1}页内"
+      },
+      "customable": "可定制",
+      "versionCore": {
+        "contain": "包含{lowerVipTxt}所有功能",
+        "beans": "每周补满{aiBeanCountLimit}豆",
+        "fulltext": "每周{fullTextTranslationCountLimit}篇",
+        "doclimit": "文献上限达{documentCountLimit}篇",
+        "eureka": "学术风格",
+        "aireviseBilingual": "AI中英文润色",
+        "aicopilotUnlimited": "AI辅读无限免豆",
+        "aireviseUnlimited": "AI润色无限免豆",
+        "customGroup": "更强的团队功能",
+        "customFeature": "支持定制新功能",
+        "customApi": "支持定制API服务"
+      },
+      "versionHot": {
+        "standard": "入门首选",
+        "profession": "最受欢迎",
+        "outstanding": "高阶专用"
+      },
+      "versionTips": {
+        "free": "",
+        "standard": "适用于学生",
+        "profession": "科研工作者适用",
+        "enterprise": "课题组/实验室/学校单位定制",
+        "outstanding": "高阶科研者首选",
+        "groupBuy": "企业团购专享优惠"
+      },
+      "versionBtnTips": {
+        "profession": "支付后可开发票",
+        "outstanding": "团队与小组功能大幅提升"
+      },
+      "contract": "《会员服务协议》",
+      "contracttip": "开通前请阅读并同意",
+      "succtip": "开通成功",
+      "privilege": {
+        "header": {
+          "tt": "功能特权",
+          "suit": "适用人群",
+          "price": "价格"
+        },
+        "management": {
+          "tt": "文献管理",
+          "limit": "文献上限",
+          "export": "PDF带笔记导出",
+          "attachment": "文献附件"
+        },
+        "translation": {
+          "tt": "文献翻译",
+          "fulltext": "全文翻译",
+          "selecttext": "划词翻译",
+          "ocr": "OCR翻译"
+        },
+        "ai": {
+          "tt": "AI功能",
+          "beans": "AI豆",
+          "beansTip": "所有的AI功能都会消耗AI豆，是使用AI能力的必备。标准版、专业版和企业版每周有固定数目的赠送。同时也支持自由充值购买。",
+          "copilot": "AI辅读",
+          "revise": "AI润色",
+          "master": "标题/摘要神器",
+          "review": "AI审稿",
+          "ai_translate": "AI翻译"
+        },
+        "group": {
+          "tt": "团队功能",
+          "gshare_limit": "小组文献容量",
+          "gnote_limit": "小组文献笔记上限",
+          "glimit": "小组创建",
+          "gnum_limit": "单个小组最大人数"
+        },
+        "others": {
+          "tt": "其他功能",
+          "readtimes": "阅读时长记录",
+          "experience": "新功能优先体验"
+        }
+      }
+    },
+    "aibeans": {
+      "disabled": "暂不支持购买",
+      "name": "AI豆",
+      "balance": "当前剩余",
+      "buyTt": "单次临时扩容豆包",
+      "buyRules": "1、@:{'common.premium.versions.standard'}、@:{'common.premium.versions.profession'}和@:{'common.premium.versions.enterprise'}的赠豆时间为每周一凌晨0点0分\n2、扣除AI豆时，优先扣除有效期较短的AI豆",
+      "buyRules4LowVip": "购买AI豆包无法让你使用专业版功能，请谨慎规划",
+      "buyPkg": "购买AI豆包",
+      "perPkg": "/包",
+      "perweek": "/周",
+      "tipPkg": "含{0}AI豆",
+      "tipPkg2": "有效期为{0}天，请谨慎规划",
+      "confirmCost": "当前任务预计消耗{0}个AI豆",
+      "tipSucc": "购买成功",
+      "noVipTip": "AI豆无法单独使用，请先开通高级版",
+      "daysLessTip": "您当前的高级版剩余天数不足，不建议购买",
+      "leftMoreTip": "您当前的AI豆剩余充足，不建议购买",
+      "persistBuy": "仍要购买",
+      "refund": "不满意退豆",
+      "refunded": "已退豆",
+      "refundDisabled": "信用较低暂不可用",
+      "refundDisabledByCard": "论文必过卡生效中",
+      "refundTimeout": "已超过退豆时效",
+      "refundTip": "当用户对回答不满意时，ReadPaper将基于账号信用提供退豆服务。高质量的反馈可以提升账号信用，低质量的反馈（如频繁退豆、无效反馈）则会降低信用",
+      "refundTt": "当前账号信用良好，填写下方反馈后立即退豆",
+      "refundReason": "退豆原因（可多选）",
+      "refundDesc": "补充说明",
+      "refundImage": "补充截图",
+      "freeuse": "免豆使用",
+      "freeuseTip": "生效中",
+      "cardUnlimitedPolishAct": "论文必过卡",
+      "cardBetaPolishAct": "新功能内测"
+    },
+    "pay": {
+      "button": "现在支付",
+      "authorize": "授权{0}代运营高级版业务（试运营）",
+      "authorizeTip": "由{0}提供技术支持",
+      "scanned": "已扫描，等待付款中",
+      "supportTip": "支付遇到问题？"
+    },
+    "notes": {
+      "summary": "总结",
+      "vocabulary": "单词/短语",
+      "annotation": "摘录",
+      "tag": "标签",
+      "blue": "蓝色",
+      "green": "绿色",
+      "yellow": "黄色",
+      "orange": "橙色",
+      "red": "红色",
+      "summaryList": "总结列表",
+      "columns": {
+        "tt": "标题",
+        "mtime": "最近编辑"
+      },
+      "wordings": {
+        "vmode": "背诵模式",
+        "edit": "点击编辑",
+        "searchAll": "搜索所有摘录",
+        "searchFolder": "在文件夹 {title} 下搜索摘录",
+        "filterRule": "显示规则",
+        "quoteLabel": "引用",
+        "sortNewest": "按最新摘录",
+        "sortEarliest": "按最早摘录",
+        "sortDefault": "按文献",
+        "jumpPaper": "跳转查看 {name} · 第{num}页",
+        "sourcePaper": "来源论文",
+        "saveNoteFail": "保存失败",
+        "saveNoteSuccess": "保存成功",
+        "saveColorFail": "修改颜色失败",
+        "deleteNote": "确定删除？",
+        "deleteNoteFail": "删除失败",
+        "deleteNoteSuccess": "删除成功",
+        "noSpecial": "标签名不能存在特殊字符：{word}",
+        "renameSuccess": "重命名标签成功",
+        "deleteTag": "删除标签 #{tag}",
+        "deleteTagFail": "删除标签失败",
+        "deleteTagSuccess": "删除标签成功"
+      }
+    },
+    "aitools": {
+      "pasteText": "粘贴文本",
+      "pasteErrorTip": "你的浏览器未开启剪切板权限，请手动使用ctrl/cmd+v粘贴",
+      "loginFirst": "登录后才能使用",
+      "vipLimit": {
+        "ruleTt": "规则说明",
+        "ruleTxt": "1.AI论文导师包含标题神器、摘要神器、AI审稿人等功能，目前处于内测阶段，并未开放全员使用\n2.用户可以通过【获取@:{'common.premium.versions.profession'}】优先体验并消耗AI豆\n3.当前只支持英文论文\n4.当前最大论文支持字数为1万字",
+        "exampleTt": "案例展示",
+        "exampleTxt": "产品效果和真实案例可以参考"
+      },
+      "trialBalance": "试用次数",
+      "aiBeanBalance": "剩余数量",
+      "aiPolish": "润色改写",
+      "zhAiPolish": "中文润色改写",
+      "enAiPolish": "英文润色改写",
+      "aiTranslate": "中译英",
+      "aiReviewer": "AI论文导师",
+      "aiReviewerQS": "AI毕业论文审稿",
+      "aiPolishTip": "💡 输入你的英文论文段落，并一键优化、扩写或降重。Eureka学习了几千万篇优秀英文论文，为你带来最专业的学术润色改写。",
+      "zhAiPolishTip": "输入你的中文论文段落，并一键优化、扩写或降重。我们的AI学习了几千万篇优秀论文，为你带来最专业的学术润色改写。",
+      "aiTranslateTip": "💡 输入中文论文段落，并一键翻译成英文。Eureka学习了几千万篇优秀英文论文，为你带来最专业的学术润色改写。",
+      "aiPolishPlaceholder": "复制粘贴要润色的文本，并点击开始生成",
+      "aiZhPolishPlaceholder": "复制粘贴要润色的文本，并点击开始生成。内测期间暂仅支持250字符以内的文本",
+      "aiTranslatePlaceholder": "复制粘贴要翻译的文本，并点击开始翻译",
+      "paperKind": {
+        "fullTimeUndergraduate": "全日制本科毕业论文",
+        "fullTimeMaster": "全日制硕士毕业论文",
+        "fullTimeDoctor": "全日制博士毕业论文",
+        "partTime": "成人教育本科毕业论文"
+      },
+      "paragraphMode": "整段模式",
+      "sentenceMode": "逐句模式",
+      "generate": "开始生成",
+      "regenerate": "重新生成",
+      "translate": "开始翻译",
+      "retranslate": "重新翻译",
+      "clear": "清空",
+      "clearTask": "清空任务",
+      "wordsLimitTip": "输入需在300字以内",
+      "polishModes": {
+        "improve": "优化",
+        "reduceSimilar": "降重",
+        "reduce": "降低",
+        "shorten": "简写",
+        "expand": "扩写",
+        "simple": "易读",
+        "standard": "标准"
+      },
+      "guide": "新手指引",
+      "addProj": "新建项目",
+      "untitled": "无标题项目",
+      "rencetTt": "最近项目",
+      "recentEmpty": "暂无内容",
+      "recentDeleteTip": "删除项目后无法恢复，是否继续删除？",
+      "latexEntryPick": {
+        "tt": "选择文件",
+        "tip": "检测到压缩文件中有多个主tex文件，请选择一个继续解析",
+        "skip": "跳过，自动判断"
+      },
+      "welcome": {
+        "title": "欢迎使用ReadPaperAI润色",
+        "tip1": "欢迎参与体验，登录后可申请内测。",
+        "tip2": "请先点击下方按钮登录",
+        "tip": "ReadPaper全新推出AI辅写功能，现已开启内测。",
+        "desc": "欢迎点击下发按钮申请体验润色改写、中译英、AI论文导师等。",
+        "waitState": "你已提交AI辅写（测试版）体验申请",
+        "waitTip": "我们会根据用户排队和资源情况分批开放使用。",
+        "waitDesc": "申请成功后，我们将下发短信通知。感谢你的耐心等待~",
+        "apply": "申请内测",
+        "applied": "已申请"
+      }
+    },
+    "aiReviewerQS": {
+      "tt": "高校师生都在用的AI论文审稿神器",
+      "desc": "只需1天时间，返回论文评审批注。比真人<b>更便宜、</b><b>更私密、</b><b>更快速</b>",
+      "demo": "批注后文档示例",
+      "demotip": "点击下载到本地查看",
+      "createTt": "创建新审稿",
+      "createTip": "上传文件并输入相应信息，点击\"创建审稿任务\"按钮后将扣取AI豆并提交评审任务",
+      "createTime": "创建时间",
+      "labelTask": "任务ID",
+      "labelStatus": "任务状态",
+      "labelResult": "审稿文件",
+      "labelFile": "论文文件",
+      "labelTipFile": "仅支持.doc/.docx格式",
+      "labelMajor": "专业",
+      "labelKind": "论文类型",
+      "labelLang": "论文语言",
+      "labelRules": "我已阅读并知晓以下规则",
+      "errorRules": "请先阅读并勾选以上条款",
+      "createRules": "1. 由于AI计算量大，审稿批注文件生成耗时20分钟至24小时之间。若超过24小时仍未收到文件，请联系ReadPaper小管家反馈\n2. 当前任务为一次性交付，点击“开始解析”后即进入计算队列，不予退款或退豆。\n3. AI审稿不同于人工审稿，审稿批注仅供参考，仍需用户本人评估各个批注建议的合理性\n4. ReadPaper对审稿批注效果不做承诺，如果遇到明显问题，如收到的文件无批注，请联系ReadPaper小管家反馈.",
+      "createBtn": "创建审稿任务",
+      "createSuccess": "支付成功，审稿任务已创建",
+      "beansTip": "AI豆不足部分将按照1元=10AI豆补齐扣费",
+      "tasksTip": "为了你的数据安全，只保留近3个月数据，过期报告将自动删除。",
+      "status": {
+        "uploaded": "已上传",
+        "unpaid": "待支付",
+        "waiting": "排队中",
+        "reviewing": "处理中",
+        "cancelled": "已取消",
+        "success": "已完成",
+        "failed": "已失败",
+        "failedBeans": "扣豆失败"
+      },
+      "failTip": "请联系小管家处理",
+      "buyTt": "正在购买毕业论文审稿任务",
+      "buyTip": "您可以通过以下方式购买",
+      "buyByCash": "单次补齐AI豆差价",
+      "buyByUpgrade": "升级到专业版/杰出版会员，获取更大的豆包容量后再返回购买",
+      "buyPatchTip": "优惠价{0}AI豆，当前任务已锁定AI豆{1}个，还需补差价："
+    },
+    "footer": {
+      "product": {
+        "title": "产品",
+        "detailList": {
+          "feature": {
+            "subtitle": "功能概览"
+          },
+          "tips": {
+            "subtitle": "使用技巧"
+          },
+          "agreement": {
+            "subtitle": "用户协议"
+          },
+          "privacy": {
+            "subtitle": "隐私政策"
+          }
+        }
+      },
+      "team": {
+        "title": "团队",
+        "detailList": {
+          "about": {
+            "subtitle": "关于我们"
+          },
+          "log": {
+            "subtitle": "更新日志"
+          },
+          "contact": {
+            "subtitle": "联系我们"
+          },
+          "feedback": {
+            "subtitle": "建议反馈"
+          }
+        }
+      },
+      "media": {
+        "title": "社交媒体",
+        "detailList": {
+          "bilibili": {
+            "subtitle": "Bilibili"
+          },
+          "zhihu": {
+            "subtitle": "知乎"
+          },
+          "weChat": {
+            "subtitle": "微信公众号"
+          }
+        }
+      }
+    }
+  }
+}

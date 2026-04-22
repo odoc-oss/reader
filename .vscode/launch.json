@@ -1,0 +1,48 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Bun: Launch Vite",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "bun",
+      "runtimeArgs": ["--inspect-brk", "--bun", "vite", "--host"],
+      "env": {
+        "VITE_API_ENV": "dev"
+      },
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Bun: Attach to Vite",
+      "type": "node",
+      "request": "attach",
+      "port": 9229,
+      "skipFiles": ["<node_internals>/**"],
+      "restart": true
+    },
+    {
+      "name": "Launch Chrome against localhost",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}",
+      "sourceMapPathOverrides": {
+        "/@fs/*": "${webRoot}/*",
+        "/*": "${webRoot}/*"
+      },
+      // "userDataDir": "${workspaceFolder}/.vscode/chrome-debug-profile",
+      // "runtimeArgs": [
+      //   "--js-flags=--nobreak"
+      // ],
+      // "disableNetworkCache": true
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Full Stack: Vite + Browser",
+      "configurations": ["Bun: Launch Vite", "Launch Chrome against localhost"],
+      "stopAll": true
+    }
+  ]
+}
