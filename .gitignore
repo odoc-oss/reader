@@ -1,0 +1,66 @@
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Coverage directory used by tools like istanbul
+coverage
+.eslintcache
+
+# Dependency directory
+# https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
+node_modules
+node_modules*
+
+# Chrome Debug Profile
+.vscode/chrome-debug-profile
+
+# OSX
+.DS_Store
+
+.lerna-debug.log
+
+src-tauri/binaries
+
+# dist
+dist
+dist-ssr
+dev-dist
+*.local
+
+# lib
+lib
+packages/*/lib
+packages/*/dist
+
+# es
+es
+
+# tying
+typing
+*.tsbuildinfo
+
+web/browser/mock
+
+# Bun
+.bun/
+# bun.lock
+node_modules/.bun
+
+
+# yarn
+yarn.lock
+package-lock.json
+
+# docs
+/docs/.vitepress/cache
+docs/.vitepress/.temp/
+
+# Tauri
+src-tauri/target/
+src-tauri/Cargo.lock
+src-tauri/gen/

@@ -1,0 +1,257 @@
+name: Release Tauri App
+
+on:
+  push:
+    tags:
+      - 'v*.*.*-tauri' # Use a specific suffix to differentiate from other releases
+  workflow_dispatch:
+
+jobs:
+  build-tauri-release:
+    name: Build Tauri Release
+    permissions:
+      contents: write # Required to create a Release and upload artifacts
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: macos-latest
+            target: x86_64-apple-darwin
+          - platform: macos-latest
+            target: aarch64-apple-darwin
+          # - platform: ubuntu-latest
+          #   target: x86_64-unknown-linux-gnu
+          - platform: windows-latest
+            target: x86_64-pc-windows-msvc
+
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24.1'
+
+      - name: Install Node.js and Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Install Linux dependencies (if applicable)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - name: Checkout Go backend repository
+        uses: actions/checkout@v4
+        with:
+          repository: 'yb2020/go-sea'
+          path: 'go-sea-backend' # Clone into this directory
+          # The Go backend is a private repository, so a PAT is required.
+          token: ${{ secrets.GO_SEA_GITOPS_PAT }}
+
+      - name: Configure Git for private modules
+        run: |
+          # Configure git to use the PAT for private Go modules and Bun dependencies
+          git config --global url."https://ci-bot:${{ secrets.GO_SEA_GITOPS_PAT }}@github.com/".insteadOf "https://github.com/"
+
+      - name: Build Go Sidecar
+        run: |
+          # IMPORTANT: Ensure your Go project is in a subdirectory named 'go-sea-backend'.
+          # If the directory has a different name, you must update the 'cd' command below.
+          cd go-sea-backend
+          
+          # Set GOOS and GOARCH based on the matrix target
+          TARGET="${{ matrix.target }}"
+          if [[ "$TARGET" == "x86_64-apple-darwin" ]]; then
+            export GOOS=darwin
+            export GOARCH=amd64
+            BINARY_NAME="go-sea-x86_64-apple-darwin"
+          elif [[ "$TARGET" == "aarch64-apple-darwin" ]]; then
+            export GOOS=darwin
+            export GOARCH=arm64
+            BINARY_NAME="go-sea-aarch64-apple-darwin"
+          elif [[ "$TARGET" == "x86_64-pc-windows-msvc" ]]; then
+            export GOOS=windows
+            export GOARCH=amd64
+            BINARY_NAME="go-sea-x86_64-pc-windows-msvc.exe"
+          elif [[ "$TARGET" == "x86_64-unknown-linux-gnu" ]]; then
+            export GOOS=linux
+            export GOARCH=amd64
+            BINARY_NAME="go-sea-x86_64-unknown-linux-gnu"
+          fi
+
+          echo "Building for $GOOS/$GOARCH..."
+          go build -ldflags="-s -w" -tags "sqlite_static" -o "../src-tauri/binaries/${BINARY_NAME}" ./cmd/server
+          echo "Go sidecar compiled successfully!"
+        shell: bash
+
+      - name: Replace SSH URL with HTTPS+PAT for private dependencies
+        run: |
+          sed -i.bak 's|git+ssh://git@github.com|git+https://${{ secrets.GO_SEA_GITOPS_PAT }}@github.com|g' package.json
+          echo "Replaced SSH URL with HTTPS+PAT in package.json"
+        shell: bash
+
+      - name: Install frontend dependencies (macOS & Linux)
+        if: runner.os != 'Windows'
+        run: bun install
+
+      - name: Install frontend dependencies (Windows)
+        if: runner.os == 'Windows'
+        run: bun install --ignore-scripts
+
+      - name: Build Tauri application using tauri-action
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # To enable code signing, uncomment and set secrets
+          # TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}
+          # TAURI_KEY_PASSWORD: ${{ secrets.TAURI_KEY_PASSWORD }}
+        with:
+          args: --target ${{ matrix.target }}
+          tagName: ${{ github.ref_name }} # Use the triggering tag for the release
+          releaseName: 'App Release ${{ github.ref_name }}'
+          releaseBody: 'See the assets to download this version.'
+          releaseDraft: true
+          prerelease: false
+#           generate_release_notes: true
+
+  sync-to-odoc-oss:
+    name: Sync Release to odoc-oss/reader
+    needs: build-tauri-release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Draft Release 需要 write 权限才能通过 API 读取
+    steps:
+      - name: Download Release Assets from current repo
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # 重试配置：每 15 秒重试一次，最多 12 次（总计 3 分钟）
+          # Draft Release 的 API 同步可能需要较长时间
+          MAX_RETRIES=12
+          RETRY_INTERVAL=15
+          
+          echo "等待 Release 创建完成..."
+          for i in $(seq 1 $MAX_RETRIES); do
+            echo "尝试 $i/$MAX_RETRIES: 获取 Release 信息..."
+            
+            # 使用 /releases 端点获取所有 Release（包括 Draft），然后过滤目标 tag
+            ALL_RELEASES=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
+              "https://api.github.com/repos/${{ github.repository }}/releases")
+            
+            RELEASE_INFO=$(echo "$ALL_RELEASES" | jq -r --arg tag "${{ github.ref_name }}" \
+              '.[] | select(.tag_name == $tag)')
+            
+            RELEASE_ID=$(echo "$RELEASE_INFO" | jq -r '.id')
+            
+            # 检查是否成功获取到 Release ID
+            if [ "$RELEASE_ID" != "null" ] && [ -n "$RELEASE_ID" ]; then
+              echo "✓ 成功获取 Release ID: $RELEASE_ID"
+              echo "Release 状态: Draft=$(echo "$RELEASE_INFO" | jq -r '.draft')"
+              break
+            fi
+            
+            # 如果不是最后一次尝试，等待后重试
+            if [ $i -lt $MAX_RETRIES ]; then
+              echo "Release 尚未就绪，${RETRY_INTERVAL} 秒后重试..."
+              sleep $RETRY_INTERVAL
+            fi
+          done
+          
+          # 检查最终是否成功
+          if [ "$RELEASE_ID" = "null" ] || [ -z "$RELEASE_ID" ]; then
+            echo "❌ 错误：重试 $MAX_RETRIES 次后仍无法获取 Release 信息"
+            echo "尝试获取最近的 5 个 Release 用于调试："
+            echo "$ALL_RELEASES" | jq -r '.[:5] | .[] | "- \(.tag_name) (draft: \(.draft))"'
+            exit 1
+          fi
+          
+          # 下载所有 Assets
+          # 注意：Draft Release 必须使用 API URL (.url) 而非 browser_download_url
+          # browser_download_url 对 Draft Release 返回 404
+          echo "开始下载 Release Assets..."
+          mkdir -p assets
+          ASSETS=$(echo "$RELEASE_INFO" | jq -r '.assets[] | "\(.name)|\(.url)"')
+          
+          if [ -z "$ASSETS" ]; then
+            echo "⚠️  警告：Release 中没有找到任何 Assets"
+            exit 1
+          fi
+          
+          echo "$ASSETS" | while IFS='|' read -r name url; do
+            if [ -n "$name" ] && [ -n "$url" ]; then
+              echo "下载: $name"
+              curl -L \
+                -H "Authorization: token $GITHUB_TOKEN" \
+                -H "Accept: application/octet-stream" \
+                -o "assets/$name" "$url"
+              
+              # 验证文件大小
+              FILE_SIZE=$(stat -c%s "assets/$name" 2>/dev/null || stat -f%z "assets/$name" 2>/dev/null)
+              echo "  文件大小: $FILE_SIZE bytes"
+            fi
+          done
+          
+          echo "✓ 下载完成，文件列表:"
+          ls -lh assets/
+
+      - name: Create Release in odoc-oss/reader
+        env:
+          TARGET_TOKEN: ${{ secrets.GO_SEA_GITOPS_PAT }}
+        run: |
+          echo "在 odoc-oss/reader 仓库创建 Release..."
+          
+          RESPONSE=$(curl -s -X POST \
+            -H "Authorization: token $TARGET_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/odoc-oss/reader/releases" \
+            -d '{
+              "tag_name": "${{ github.ref_name }}",
+              "name": "App Release ${{ github.ref_name }}",
+              "body": "See the assets to download this version.",
+              "draft": true,
+              "prerelease": false
+            }')
+          
+          RELEASE_ID=$(echo "$RESPONSE" | jq -r '.id')
+          
+          # 检查是否成功创建
+          if [ "$RELEASE_ID" = "null" ] || [ -z "$RELEASE_ID" ]; then
+            echo "❌ 错误：无法在 odoc-oss/reader 创建 Release"
+            echo "API 响应: $RESPONSE"
+            exit 1
+          fi
+          
+          echo "✓ 成功创建 Release ID: $RELEASE_ID"
+          echo "RELEASE_ID=$RELEASE_ID" >> $GITHUB_ENV
+
+      - name: Upload Assets to odoc-oss/reader
+        env:
+          TARGET_TOKEN: ${{ secrets.GO_SEA_GITOPS_PAT }}
+        run: |
+          echo "开始上传 Assets 到 odoc-oss/reader..."
+          
+          UPLOAD_COUNT=0
+          for file in assets/*; do
+            filename=$(basename "$file")
+            echo "上传: $filename"
+            
+            curl -s -X POST \
+              -H "Authorization: token $TARGET_TOKEN" \
+              -H "Content-Type: application/octet-stream" \
+              --data-binary "@$file" \
+              "https://uploads.github.com/repos/odoc-oss/reader/releases/${{ env.RELEASE_ID }}/assets?name=$filename"
+            
+            UPLOAD_COUNT=$((UPLOAD_COUNT + 1))
+          done
+          
+          echo "✓ 成功上传 $UPLOAD_COUNT 个文件到 odoc-oss/reader"
